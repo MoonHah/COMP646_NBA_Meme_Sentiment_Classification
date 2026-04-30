@@ -1,0 +1,1772 @@
+{
+  "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+  "adapter": "models/qwen_lora_balanced_train_val",
+  "prompt_style": "balanced",
+  "adapter_training_config": {
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "split_dir": "data/processed",
+    "train_file": "data/processed/train_val.csv",
+    "schema": "configs/label_schema.json",
+    "num_train_rows": 450,
+    "epochs": 1,
+    "batch_size": 1,
+    "grad_accum": 8,
+    "lr": 0.0002,
+    "max_length": 1536,
+    "max_image_side": 448,
+    "load_in_4bit": true,
+    "gradient_checkpointing": true,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "include_team_context": false,
+    "prompt_style": "balanced"
+  },
+  "active_tasks": {
+    "division": "multi-label",
+    "polarity": "3-class"
+  },
+  "test": {
+    "division": {
+      "micro_f1": 0.603448275862069,
+      "macro_f1": 0.5939122315592904,
+      "per_label": {
+        "human_division__Atlantic Division": {
+          "precision": 0.2857142857142857,
+          "recall": 0.8571428571428571,
+          "f1-score": 0.42857142857142855,
+          "support": 7.0
+        },
+        "human_division__Central Division": {
+          "precision": 0.45161290322580644,
+          "recall": 0.7368421052631579,
+          "f1-score": 0.56,
+          "support": 19.0
+        },
+        "human_division__Southeast Division": {
+          "precision": 0.6296296296296297,
+          "recall": 0.7391304347826086,
+          "f1-score": 0.68,
+          "support": 23.0
+        },
+        "human_division__Northwest Division": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5263157894736842,
+          "f1-score": 0.5882352941176471,
+          "support": 19.0
+        },
+        "human_division__Pacific Division": {
+          "precision": 0.7894736842105263,
+          "recall": 0.5769230769230769,
+          "f1-score": 0.6666666666666666,
+          "support": 26.0
+        },
+        "human_division__Southwest Division": {
+          "precision": 0.8,
+          "recall": 0.5333333333333333,
+          "f1-score": 0.64,
+          "support": 15.0
+        },
+        "micro avg": {
+          "precision": 0.5691056910569106,
+          "recall": 0.6422018348623854,
+          "f1-score": 0.603448275862069,
+          "support": 109.0
+        },
+        "macro avg": {
+          "precision": 0.6038495282411525,
+          "recall": 0.661614599486453,
+          "f1-score": 0.5939122315592904,
+          "support": 109.0
+        },
+        "weighted avg": {
+          "precision": 0.6445422853111207,
+          "recall": 0.6422018348623854,
+          "f1-score": 0.6182550818492535,
+          "support": 109.0
+        },
+        "samples avg": {
+          "precision": 0.6354166666666666,
+          "recall": 0.6708333333333333,
+          "f1-score": 0.6314880952380952,
+          "support": 109.0
+        }
+      }
+    },
+    "polarity": {
+      "accuracy": 0.5625,
+      "macro_f1": 0.5668132078830957,
+      "per_label": {
+        "human_polarity__positive": {
+          "precision": 0.5416666666666666,
+          "recall": 0.7222222222222222,
+          "f1-score": 0.6190476190476191,
+          "support": 18.0
+        },
+        "human_polarity__negative": {
+          "precision": 0.5142857142857142,
+          "recall": 0.6923076923076923,
+          "f1-score": 0.5901639344262295,
+          "support": 26.0
+        },
+        "human_polarity__neutral": {
+          "precision": 0.6666666666666666,
+          "recall": 0.3888888888888889,
+          "f1-score": 0.49122807017543857,
+          "support": 36.0
+        },
+        "accuracy": 0.5625,
+        "macro avg": {
+          "precision": 0.574206349206349,
+          "recall": 0.6011396011396011,
+          "f1-score": 0.5668132078830957,
+          "support": 80.0
+        },
+        "weighted avg": {
+          "precision": 0.589017857142857,
+          "recall": 0.5625,
+          "f1-score": 0.5521416245531862,
+          "support": 80.0
+        }
+      }
+    },
+    "generations": [
+      {
+        "sample_id": "1rc7oni",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1rifzfc",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qlxixu",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1riwu8s",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1q6265t",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1q8vowt",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1rz4elb",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rbpgvp",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qtb0fa",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\", \"Southeast Division\", \"Northwest Division\", \"Pacific Division\", \"Southwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division",
+            "Southeast Division",
+            "Northwest Division",
+            "Pacific Division",
+            "Southwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1re1ozl",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1q7ujdc",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\", \"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division",
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1rqhlr6",
+        "raw_output": "{\"divisions\": [\"Central Division\", \"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division",
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Central Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1qvfszp",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1rnsj25",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division",
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1s3uf18",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s645yr",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division",
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1s8ovvz",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\", \"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division",
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1q2tn00",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1q57w6j",
+        "raw_output": "{\"divisions\": [\"Southeast Division\", \"Northwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division",
+            "Northwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division",
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rlnoho",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1r891kt",
+        "raw_output": "{\"divisions\": [\"Central Division\", \"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division",
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1sbwxq1",
+        "raw_output": "{\"divisions\": [\"Central Division\", \"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division",
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division",
+          "Pacific Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qt6hvp",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1quzoqq",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1r5xunp",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rr0hpt",
+        "raw_output": "{\"divisions\": [\"Central Division\", \"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division",
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Southeast Division",
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Central Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1q8palk",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\", \"Southeast Division\", \"Northwest Division\", \"Pacific Division\", \"Southwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division",
+            "Southeast Division",
+            "Northwest Division",
+            "Pacific Division",
+            "Southwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rfue61",
+        "raw_output": "{\"divisions\": [\"Southwest Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Southwest Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Southwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1rhombp",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1scnehm",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s0smsa",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Southwest Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Southwest Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Southwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1r4prbu",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qykho1",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rb92mv",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qve12u",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1rd1vpu",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1r6sfr0",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s4hb7e",
+        "raw_output": "{\"divisions\": [\"Northwest Division\", \"Southwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division",
+            "Southwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division",
+          "Southwest Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1s6vp43",
+        "raw_output": "{\"divisions\": [\"Southwest Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Southwest Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Southwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1qtg77c",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qee295",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qi64ot",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Northwest Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s5cyam",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1s0iex4",
+        "raw_output": "{\"divisions\": [\"Southwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Southwest Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qx0ehj",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rzm8qf",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1rxttyj",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qm5arg",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1pyyze5",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1sdcr8f",
+        "raw_output": "{\"divisions\": [\"Central Division\", \"Southeast Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division",
+            "Southeast Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Central Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rvtxp2",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rz9f5b",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1quap5r",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rq9is9",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s1knht",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1sb15qe",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1rqh75h",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division",
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qer0bz",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division",
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rqhmc6",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1rrveg1",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\", \"Southeast Division\", \"Northwest Division\", \"Pacific Division\", \"Southwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division",
+            "Southeast Division",
+            "Northwest Division",
+            "Pacific Division",
+            "Southwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southeast Division",
+          "Pacific Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1s4il10",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qpztky",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s3vtu9",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s8o6q8",
+        "raw_output": "{\"divisions\": [\"Southeast Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southeast Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Southeast Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qi9s7o",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1rxk9qk",
+        "raw_output": "{\"divisions\": [\"Pacific Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Pacific Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Pacific Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rjqswa",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1sagknh",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qzc0z1",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1rlloqi",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1s9s49m",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Central Division",
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1qvzlez",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1r854r1",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Atlantic Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1qg0bz9",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1r5tpfj",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Northwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Northwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Northwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1s3uflk",
+        "raw_output": "{\"divisions\": [\"Central Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Central Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Central Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1pzfk6h",
+        "raw_output": "{\"divisions\": [\"Southwest Division\"], \"polarity\": \"negative\"}",
+        "parsed": {
+          "divisions": [
+            "Southwest Division"
+          ],
+          "polarity": "negative"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Southwest Division"
+        ],
+        "gold_polarity": "neutral",
+        "pred_polarity": "negative"
+      },
+      {
+        "sample_id": "1sale76",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Central Division\", \"Southeast Division\", \"Northwest Division\", \"Pacific Division\", \"Southwest Division\"], \"polarity\": \"neutral\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Central Division",
+            "Southeast Division",
+            "Northwest Division",
+            "Pacific Division",
+            "Southwest Division"
+          ],
+          "polarity": "neutral"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Central Division",
+          "Southeast Division",
+          "Northwest Division",
+          "Pacific Division",
+          "Southwest Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "neutral"
+      },
+      {
+        "sample_id": "1sccjm2",
+        "raw_output": "{\"divisions\": [\"Atlantic Division\", \"Southeast Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Atlantic Division",
+            "Southeast Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Atlantic Division",
+          "Southeast Division"
+        ],
+        "gold_polarity": "negative",
+        "pred_polarity": "positive"
+      },
+      {
+        "sample_id": "1r1bgq2",
+        "raw_output": "{\"divisions\": [\"Northwest Division\"], \"polarity\": \"positive\"}",
+        "parsed": {
+          "divisions": [
+            "Northwest Division"
+          ],
+          "polarity": "positive"
+        },
+        "parse_ok": true,
+        "gold_divisions": [
+          "Northwest Division"
+        ],
+        "pred_divisions": [
+          "Northwest Division"
+        ],
+        "gold_polarity": "positive",
+        "pred_polarity": "positive"
+      }
+    ],
+    "parse_failures": 0
+  }
+}

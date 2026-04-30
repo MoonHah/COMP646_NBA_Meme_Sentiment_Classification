@@ -1,0 +1,54 @@
+{
+  "split_dir": "data/processed",
+  "num_rows": {
+    "train": 360,
+    "val": 90,
+    "test": 80
+  },
+  "num_unique_samples": 530,
+  "label_counts": {
+    "train": {
+      "human_division__Atlantic Division": 70,
+      "human_division__Central Division": 69,
+      "human_division__Southeast Division": 93,
+      "human_division__Northwest Division": 65,
+      "human_division__Pacific Division": 125,
+      "human_division__Southwest Division": 67,
+      "human_polarity__positive": 64,
+      "human_polarity__negative": 174,
+      "human_polarity__neutral": 122
+    },
+    "val": {
+      "human_division__Atlantic Division": 19,
+      "human_division__Central Division": 16,
+      "human_division__Southeast Division": 17,
+      "human_division__Northwest Division": 26,
+      "human_division__Pacific Division": 21,
+      "human_division__Southwest Division": 13,
+      "human_polarity__positive": 16,
+      "human_polarity__negative": 44,
+      "human_polarity__neutral": 30
+    },
+    "test": {
+      "human_division__Atlantic Division": 7,
+      "human_division__Central Division": 19,
+      "human_division__Southeast Division": 23,
+      "human_division__Northwest Division": 19,
+      "human_division__Pacific Division": 26,
+      "human_division__Southwest Division": 15,
+      "human_polarity__positive": 18,
+      "human_polarity__negative": 26,
+      "human_polarity__neutral": 36
+    }
+  },
+  "fieldnames_match": false,
+  "active_tasks": {
+    "division": "multi-label sigmoid",
+    "polarity": "3-class softmax"
+  },
+  "excluded_labels": [
+    "human_type__humor",
+    "human_type__highlight"
+  ],
+  "issues": []
+}

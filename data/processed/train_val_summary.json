@@ -1,0 +1,28 @@
+{
+  "train_rows": 360,
+  "val_rows": 90,
+  "train_val_rows": 450,
+  "test_rows_held_out": 80,
+  "output": "data/processed/train_val.csv",
+  "test_included": false,
+  "columns": [
+    "sample_id",
+    "legacy_image_id",
+    "image_path",
+    "text",
+    "raw_order",
+    "parsed_teams",
+    "human_division__Atlantic Division",
+    "human_division__Central Division",
+    "human_division__Southeast Division",
+    "human_division__Northwest Division",
+    "human_division__Pacific Division",
+    "human_division__Southwest Division",
+    "human_polarity__positive",
+    "human_polarity__negative",
+    "human_polarity__neutral",
+    "human_type__humor",
+    "human_type__highlight",
+    "primary_team_or_context"
+  ]
+}

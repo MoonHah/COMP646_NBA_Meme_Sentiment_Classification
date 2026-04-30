@@ -1,0 +1,16 @@
+{
+  "input": "final_annotations.csv",
+  "output": "data/weak/team_division_ai_labeling_queue.csv",
+  "num_rows": 532,
+  "division_positive_counts": {
+    "Atlantic Division": 99,
+    "Central Division": 106,
+    "Southeast Division": 139,
+    "Northwest Division": 107,
+    "Pacific Division": 167,
+    "Southwest Division": 89
+  },
+  "unknown_teams": {},
+  "missing_images": [],
+  "sentiment_note": "Legacy parsed_sentiments were intentionally not imported."
+}

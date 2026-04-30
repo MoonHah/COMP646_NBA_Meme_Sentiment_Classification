@@ -1,0 +1,106 @@
+{
+  "task_definition": {
+    "division_head": "6-label multi-label NBA division context prediction with sigmoid outputs.",
+    "polarity_head": "3-class mutually exclusive sentiment polarity prediction with softmax outputs.",
+    "meme_type_head": "Legacy/optional annotation columns only; excluded from the active Qwen training plan.",
+    "quality_flags": "Annotation-only flags used for filtering and adjudication."
+  },
+  "division_labels": [
+    "Atlantic Division",
+    "Central Division",
+    "Southeast Division",
+    "Northwest Division",
+    "Pacific Division",
+    "Southwest Division"
+  ],
+  "polarity_labels": [
+    "positive",
+    "negative",
+    "neutral"
+  ],
+  "meme_type_labels": [
+    "humor",
+    "highlight"
+  ],
+  "excluded_from_active_modeling": [
+    "human_type__humor",
+    "human_type__highlight"
+  ],
+  "quality_flags": [
+    "not_nba_relevant",
+    "needs_discussion"
+  ],
+  "division_to_conference": {
+    "Atlantic Division": "Eastern Conference",
+    "Central Division": "Eastern Conference",
+    "Southeast Division": "Eastern Conference",
+    "Northwest Division": "Western Conference",
+    "Pacific Division": "Western Conference",
+    "Southwest Division": "Western Conference"
+  },
+  "team_to_division": {
+    "Atlanta Hawks": "Southeast Division",
+    "Boston Celtics": "Atlantic Division",
+    "Brooklyn Nets": "Atlantic Division",
+    "Charlotte Hornets": "Southeast Division",
+    "Chicago Bulls": "Central Division",
+    "Cleveland Cavaliers": "Central Division",
+    "Dallas Mavericks": "Southwest Division",
+    "Denver Nuggets": "Northwest Division",
+    "Detroit Pistons": "Central Division",
+    "Golden State Warriors": "Pacific Division",
+    "Houston Rockets": "Southwest Division",
+    "Indiana Pacers": "Central Division",
+    "LA Clippers": "Pacific Division",
+    "Los Angeles Clippers": "Pacific Division",
+    "Los Angeles Lakers": "Pacific Division",
+    "Memphis Grizzlies": "Southwest Division",
+    "Miami Heat": "Southeast Division",
+    "Milwaukee Bucks": "Central Division",
+    "Minnesota Timberwolves": "Northwest Division",
+    "New Orleans Pelicans": "Southwest Division",
+    "New York Knicks": "Atlantic Division",
+    "Oklahoma City Thunder": "Northwest Division",
+    "Orlando Magic": "Southeast Division",
+    "Philadelphia 76ers": "Atlantic Division",
+    "Phoenix Suns": "Pacific Division",
+    "Portland Trail Blazers": "Northwest Division",
+    "Sacramento Kings": "Pacific Division",
+    "San Antonio Spurs": "Southwest Division",
+    "Toronto Raptors": "Atlantic Division",
+    "Utah Jazz": "Northwest Division",
+    "Washington Wizards": "Southeast Division"
+  },
+  "team_to_conference": {
+    "Atlanta Hawks": "Eastern Conference",
+    "Boston Celtics": "Eastern Conference",
+    "Brooklyn Nets": "Eastern Conference",
+    "Charlotte Hornets": "Eastern Conference",
+    "Chicago Bulls": "Eastern Conference",
+    "Cleveland Cavaliers": "Eastern Conference",
+    "Dallas Mavericks": "Western Conference",
+    "Denver Nuggets": "Western Conference",
+    "Detroit Pistons": "Eastern Conference",
+    "Golden State Warriors": "Western Conference",
+    "Houston Rockets": "Western Conference",
+    "Indiana Pacers": "Eastern Conference",
+    "LA Clippers": "Western Conference",
+    "Los Angeles Lakers": "Western Conference",
+    "Memphis Grizzlies": "Western Conference",
+    "Miami Heat": "Eastern Conference",
+    "Milwaukee Bucks": "Eastern Conference",
+    "Minnesota Timberwolves": "Western Conference",
+    "New Orleans Pelicans": "Western Conference",
+    "New York Knicks": "Eastern Conference",
+    "Oklahoma City Thunder": "Western Conference",
+    "Orlando Magic": "Eastern Conference",
+    "Philadelphia 76ers": "Eastern Conference",
+    "Phoenix Suns": "Western Conference",
+    "Portland Trail Blazers": "Western Conference",
+    "Sacramento Kings": "Western Conference",
+    "San Antonio Spurs": "Western Conference",
+    "Toronto Raptors": "Eastern Conference",
+    "Utah Jazz": "Western Conference",
+    "Washington Wizards": "Eastern Conference"
+  }
+}

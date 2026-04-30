@@ -1,0 +1,20 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+
+# Local / generated runtime artifacts
+.ipynb_checkpoints/
+*.zip
+
+# Model checkpoints and downloaded weights should not live in Git.
+models/
+checkpoint-*/
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Optional generated report artifacts can be rebuilt from scripts.
+report_figures/
+report_tables/
