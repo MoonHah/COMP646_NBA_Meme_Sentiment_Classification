@@ -1,0 +1,42 @@
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.95}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Prompt & Div. Macro & Div. Micro & Pol. Acc. & Pol. Macro \\
+\midrule
+Baseline & 0.647 & 0.690 & 0.733 & 0.725 \\
+Recall-oriented & 0.673 & 0.670 & 0.733 & 0.715 \\
+Balanced & \textbf{0.721} & \textbf{0.729} & 0.722 & 0.704 \\
+\bottomrule
+\end{tabular}
+}
+\vspace{3pt}
+\caption{Validation results for prompt selection. Division is evaluated as a multi-label task using macro/micro F1; polarity is evaluated as a three-way classification task.}
+\label{tab:validation_prompt_selection}
+\end{table}
+
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.95}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Model & Div. Macro & Div. Micro & Pol. Acc. & Pol. Macro \\
+\midrule
+Frequency prior & 0.082 & 0.275 & 0.325 & 0.164 \\
+Qwen zero-shot & 0.487 & 0.506 & 0.637 & 0.610 \\
+LoRA, train only & 0.578 & 0.586 & \textbf{0.650} & \textbf{0.650} \\
+LoRA, train+val & \textbf{0.594} & \textbf{0.603} & 0.562 & 0.567 \\
+\bottomrule
+\end{tabular}
+}
+\vspace{3pt}
+\caption{Held-out test results on the human-verified test set. Fine-tuning improves division recognition over zero-shot Qwen; merging train and validation improves division F1 but hurts polarity.}
+\label{tab:heldout_test_results}
+\end{table}
