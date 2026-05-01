@@ -95,8 +95,10 @@ def grouped_bar_svg(
     y_label: str,
     width: int = 1050,
     height: int = 560,
+    rotate_labels: bool = False,
 ) -> None:
-    margin = {"left": 78, "right": 34, "top": 72, "bottom": 112}
+    _ = rotate_labels
+    margin = {"left": 78, "right": 34, "top": 72, "bottom": 82}
     plot_w = width - margin["left"] - margin["right"]
     plot_h = height - margin["top"] - margin["bottom"]
     max_value = max([1.0] + [value for values in series.values() for value in values])
@@ -117,7 +119,7 @@ def grouped_bar_svg(
 
     for c_idx, category in enumerate(categories):
         group_x = margin["left"] + c_idx * bar_group_w + bar_group_w / 2
-        parts.append(f'<text x="{group_x:.1f}" y="{height-54}" text-anchor="end" transform="rotate(-35 {group_x:.1f} {height-54})" class="axis">{esc(category)}</text>')
+        parts.append(f'<text x="{group_x:.1f}" y="{height-54}" text-anchor="middle" class="axis">{esc(category)}</text>')
         start_x = group_x - (len(names) * bar_w) / 2
         for s_idx, name in enumerate(names):
             value = series[name][c_idx]
@@ -196,7 +198,7 @@ def heatmap_svg(
     parts.append(f'<text x="20" y="{margin["top"] + plot_h/2}" transform="rotate(-90 20 {margin["top"] + plot_h/2})" class="axis">Gold label</text>')
     for c_idx, col in enumerate(cols):
         x = margin["left"] + c_idx * cell_w + cell_w / 2
-        parts.append(f'<text x="{x:.1f}" y="{height-52}" text-anchor="end" transform="rotate(-35 {x:.1f} {height-52})" class="axis">{esc(col)}</text>')
+        parts.append(f'<text x="{x:.1f}" y="{height-52}" text-anchor="middle" class="axis">{esc(col)}</text>')
     for r_idx, row_label in enumerate(rows):
         y = margin["top"] + r_idx * cell_h + cell_h / 2
         parts.append(f'<text x="{margin["left"]-10}" y="{y+4:.1f}" text-anchor="end" class="axis">{esc(row_label)}</text>')
@@ -397,6 +399,7 @@ def main() -> None:
         div_labels,
         {split: count_labels(rows, div_cols) for split, rows in splits.items()},
         "Number of positive labels",
+        rotate_labels=False,
     )
     grouped_bar_svg(
         args.output_dir / "polarity_label_distribution.svg",
@@ -406,6 +409,7 @@ def main() -> None:
         "Number of memes",
         width=760,
         height=460,
+        rotate_labels=False,
     )
 
     metrics = read_json(args.metrics) if args.metrics else None
@@ -431,6 +435,7 @@ def main() -> None:
             "Number of labels",
             width=1050,
             height=540,
+            rotate_labels=False,
         )
 
         heatmap_svg(

@@ -18,3 +18,7 @@ checkpoint-*/
 # Optional generated report artifacts can be rebuilt from scripts.
 report_figures/
 report_tables/
+
+# Local drafts and render previews kept out of the repository.
+other/
+tmp/

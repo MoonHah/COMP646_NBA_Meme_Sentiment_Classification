@@ -11,6 +11,8 @@ from typing import Any
 
 
 DEFAULT_METRICS = {
+    "frequency_baseline": Path("data/results/frequency_baseline_test.json"),
+    "qwen_zeroshot": Path("data/results/qwen_zeroshot_test.json"),
     "val_baseline": Path("data/results/qwen_lora_val_no_team_context_detailed.json"),
     "val_recall": Path("data/results/qwen_lora_val_recall_prompt.json"),
     "val_balanced": Path("data/results/qwen_lora_val_balanced_prompt.json"),
@@ -178,6 +180,229 @@ def latex_table(rows: list[dict[str, Any]], columns: list[str], caption: str, la
     return "\n".join(lines)
 
 
+def find_row(rows: list[dict[str, Any]], experiment: str, split: str) -> dict[str, Any] | None:
+    for row in rows:
+        if row.get("experiment") == experiment and row.get("split") == split:
+            return row
+    return None
+
+
+def metric(row: dict[str, Any] | None, key: str) -> str:
+    if row is None:
+        return "--"
+    return rounded(row.get(key, ""))
+
+
+def report_validation_prompt_table(summary_rows: list[dict[str, Any]]) -> str:
+    experiments = [
+        ("Baseline", "val_baseline"),
+        ("Recall-oriented", "val_recall"),
+        ("Balanced", "val_balanced"),
+    ]
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\small",
+        "\\begin{tabular}{lcccc}",
+        "\\toprule",
+        "Prompt & Div. Macro & Div. Micro & Pol. Acc. & Pol. Macro \\\\",
+        "\\midrule",
+    ]
+    for label, experiment in experiments:
+        row = find_row(summary_rows, experiment, "val")
+        div_macro = metric(row, "division_macro_f1")
+        div_micro = metric(row, "division_micro_f1")
+        pol_acc = metric(row, "polarity_accuracy")
+        pol_macro = metric(row, "polarity_macro_f1")
+        if experiment == "val_balanced":
+            div_macro = f"\\textbf{{{div_macro}}}"
+            div_micro = f"\\textbf{{{div_micro}}}"
+        lines.append(f"{label} & {div_macro} & {div_micro} & {pol_acc} & {pol_macro} \\\\")
+    lines.extend(
+        [
+            "\\bottomrule",
+            "\\end{tabular}",
+            "\\caption{Validation results for prompt selection. Division is evaluated as a multi-label task using macro/micro F1; polarity is evaluated as a three-way classification task.}",
+            "\\label{tab:validation_prompt_selection}",
+            "\\end{table}",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def report_heldout_test_table(summary_rows: list[dict[str, Any]]) -> str:
+    experiments = [
+        ("Frequency prior", "frequency_baseline"),
+        ("Qwen zero-shot", "qwen_zeroshot"),
+        ("LoRA, train only", "test_balanced_train_only"),
+        ("LoRA, train+val", "test_balanced_train_val"),
+    ]
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\small",
+        "\\begin{tabular}{lcccc}",
+        "\\toprule",
+        "Model & Div. Macro & Div. Micro & Pol. Acc. & Pol. Macro \\\\",
+        "\\midrule",
+    ]
+    for label, experiment in experiments:
+        row = find_row(summary_rows, experiment, "test")
+        div_macro = metric(row, "division_macro_f1")
+        div_micro = metric(row, "division_micro_f1")
+        pol_acc = metric(row, "polarity_accuracy")
+        pol_macro = metric(row, "polarity_macro_f1")
+        if experiment == "test_balanced_train_val":
+            div_macro = f"\\textbf{{{div_macro}}}"
+            div_micro = f"\\textbf{{{div_micro}}}"
+        if experiment == "test_balanced_train_only":
+            pol_acc = f"\\textbf{{{pol_acc}}}"
+            pol_macro = f"\\textbf{{{pol_macro}}}"
+        lines.append(f"{label} & {div_macro} & {div_micro} & {pol_acc} & {pol_macro} \\\\")
+    lines.extend(
+        [
+            "\\bottomrule",
+            "\\end{tabular}",
+            "\\caption{Held-out test results on the human-verified test set. Fine-tuning improves division recognition over zero-shot Qwen; merging train and validation improves division F1 but hurts polarity.}",
+            "\\label{tab:heldout_test_results}",
+            "\\end{table}",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def report_test_division_table(division_rows: list[dict[str, Any]]) -> str:
+    experiments = [
+        ("Qwen zero-shot", "qwen_zeroshot"),
+        ("LoRA train", "test_balanced_train_only"),
+        ("LoRA train+val", "test_balanced_train_val"),
+    ]
+    rows_by_experiment = {
+        experiment: find_row(division_rows, experiment, "test") for _, experiment in experiments
+    }
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\small",
+        "\\begin{tabular}{lccc}",
+        "\\toprule",
+        "Division & Qwen zero-shot & LoRA train & LoRA train+val \\\\",
+        "\\midrule",
+    ]
+    for key in DIVISION_KEYS:
+        label = short_division(key)
+        col = f"{label}_f1"
+        values = [metric(rows_by_experiment[experiment], col) for _, experiment in experiments]
+        numeric_values = []
+        for value in values:
+            try:
+                numeric_values.append(float(value))
+            except ValueError:
+                numeric_values.append(-1.0)
+        best = max(numeric_values)
+        formatted = [
+            f"\\textbf{{{value}}}" if score == best and score >= 0 else value
+            for value, score in zip(values, numeric_values)
+        ]
+        lines.append(f"{label} & {formatted[0]} & {formatted[1]} & {formatted[2]} \\\\")
+    macro_values = [
+        metric(find_row(summary_rows_cache, experiment, "test"), "division_macro_f1")
+        for _, experiment in experiments
+    ]
+    numeric_macro_values = []
+    for value in macro_values:
+        try:
+            numeric_macro_values.append(float(value))
+        except ValueError:
+            numeric_macro_values.append(-1.0)
+    best_macro = max(numeric_macro_values)
+    formatted_macro = [
+        f"\\textbf{{{value}}}" if score == best_macro and score >= 0 else value
+        for value, score in zip(macro_values, numeric_macro_values)
+    ]
+    lines.extend(
+        [
+            "\\midrule",
+            f"Macro avg. & {formatted_macro[0]} & {formatted_macro[1]} & {formatted_macro[2]} \\\\",
+            "\\bottomrule",
+            "\\end{tabular}",
+            "\\caption{Per-division F1 on the human-verified held-out test set. The train+val model has the strongest division macro-F1, while the train-only model is more balanced across the two tasks.}",
+            "\\label{tab:test_division_f1}",
+            "\\end{table}",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def report_test_polarity_table(polarity_rows: list[dict[str, Any]]) -> str:
+    experiments = [
+        ("Qwen zero-shot", "qwen_zeroshot"),
+        ("LoRA train", "test_balanced_train_only"),
+        ("LoRA train+val", "test_balanced_train_val"),
+    ]
+    rows_by_experiment = {
+        experiment: find_row(polarity_rows, experiment, "test") for _, experiment in experiments
+    }
+    labels = [("Positive", "positive_f1"), ("Negative", "negative_f1"), ("Neutral", "neutral_f1")]
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\small",
+        "\\begin{tabular}{lccc}",
+        "\\toprule",
+        "Polarity & Qwen zero-shot & LoRA train & LoRA train+val \\\\",
+        "\\midrule",
+    ]
+    for label, col in labels:
+        values = [metric(rows_by_experiment[experiment], col) for _, experiment in experiments]
+        numeric_values = []
+        for value in values:
+            try:
+                numeric_values.append(float(value))
+            except ValueError:
+                numeric_values.append(-1.0)
+        best = max(numeric_values)
+        formatted = [
+            f"\\textbf{{{value}}}" if score == best and score >= 0 else value
+            for value, score in zip(values, numeric_values)
+        ]
+        lines.append(f"{label} & {formatted[0]} & {formatted[1]} & {formatted[2]} \\\\")
+    macro_values = [
+        metric(find_row(summary_rows_cache, experiment, "test"), "polarity_macro_f1")
+        for _, experiment in experiments
+    ]
+    numeric_macro_values = []
+    for value in macro_values:
+        try:
+            numeric_macro_values.append(float(value))
+        except ValueError:
+            numeric_macro_values.append(-1.0)
+    best_macro = max(numeric_macro_values)
+    formatted_macro = [
+        f"\\textbf{{{value}}}" if score == best_macro and score >= 0 else value
+        for value, score in zip(macro_values, numeric_macro_values)
+    ]
+    lines.extend(
+        [
+            "\\midrule",
+            f"Macro avg. & {formatted_macro[0]} & {formatted_macro[1]} & {formatted_macro[2]} \\\\",
+            "\\bottomrule",
+            "\\end{tabular}",
+            "\\caption{Per-polarity F1 on the human-verified held-out test set. The train-only LoRA model gives the best polarity macro-F1, mainly by preserving stronger positive and neutral performance.}",
+            "\\label{tab:test_polarity_f1}",
+            "\\end{table}",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+summary_rows_cache: list[dict[str, Any]] = []
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -212,6 +437,9 @@ def main() -> None:
     if not summary_rows:
         raise SystemExit("No metrics files found. Use --metric NAME=PATH or place JSON files in data/results/.")
 
+    global summary_rows_cache
+    summary_rows_cache = summary_rows
+
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
     summary_cols = [
@@ -242,30 +470,15 @@ def main() -> None:
     if args.format in {"all", "latex"}:
         write_text(
             args.output_dir / "experiment_summary.tex",
-            latex_table(
-                summary_rows,
-                summary_cols,
-                "Comparison of Qwen2.5-VL LoRA experiments.",
-                "tab:qwen_experiment_summary",
-            ),
+            report_validation_prompt_table(summary_rows) + "\n" + report_heldout_test_table(summary_rows),
         )
         write_text(
             args.output_dir / "division_per_label_f1.tex",
-            latex_table(
-                division_rows,
-                division_cols,
-                "Per-division F1 comparison.",
-                "tab:division_per_label_f1",
-            ),
+            report_test_division_table(division_rows),
         )
         write_text(
             args.output_dir / "polarity_per_label_f1.tex",
-            latex_table(
-                polarity_rows,
-                polarity_cols,
-                "Per-polarity F1 comparison.",
-                "tab:polarity_per_label_f1",
-            ),
+            report_test_polarity_table(polarity_rows),
         )
 
     if skipped:
